@@ -1,0 +1,58 @@
+{
+  "config_version": "1.0.0",
+  "environment": "development",
+  "providers": [
+    {
+      "provider_id": "bsp",
+      "display_name": "Bangko Sentral ng Pilipinas",
+      "enabled": false,
+      "base_url": null,
+      "auth": {
+        "type": "none_or_provider_defined",
+        "secret_ref": null
+      },
+      "domains": [
+        "policy_rates",
+        "fx",
+        "financial_statistics"
+      ],
+      "notes": "Confirm current API availability, documentation, terms, and formats before enabling."
+    },
+    {
+      "provider_id": "psa",
+      "display_name": "Philippine Statistics Authority",
+      "enabled": false,
+      "base_url": null,
+      "auth": {
+        "type": "none_or_provider_defined",
+        "secret_ref": null
+      },
+      "domains": [
+        "inflation",
+        "national_accounts",
+        "labor"
+      ],
+      "notes": "Use official published datasets/API only after access and licence review."
+    },
+    {
+      "provider_id": "pse",
+      "display_name": "Philippine Stock Exchange",
+      "enabled": false,
+      "base_url": null,
+      "auth": {
+        "type": "provider_defined",
+        "secret_ref": null
+      },
+      "domains": [
+        "listed_instruments",
+        "market_data",
+        "corporate_actions"
+      ],
+      "notes": "Confirm market-data access rights and redistribution restrictions."
+    }
+  ],
+  "security": {
+    "never_store_secrets_in_this_file": true,
+    "secret_refs_must_resolve_server_side": true
+  }
+}

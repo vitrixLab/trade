@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/macro-observation.schema.json",
+  "title": "Macroeconomic observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "observation_id",
+    "series_id",
+    "provider",
+    "region",
+    "observed_at",
+    "value",
+    "unit",
+    "source",
+    "quality"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "observation_id": { "type": "string", "minLength": 1 },
+    "series_id": { "type": "string", "minLength": 1 },
+    "provider": { "type": "string", "minLength": 1 },
+    "region": { "type": "string", "minLength": 2 },
+    "observed_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "released_at": { "type": ["string", "null"], "format": "date-time" },
+    "value": { "$ref": "common.schema.json#/$defs/money" },
+    "unit": { "type": "string" },
+    "frequency": {
+      "enum": ["daily", "weekly", "monthly", "quarterly", "annual", "other"]
+    },
+    "vintage": { "type": "string" },
+    "source": { "$ref": "common.schema.json#/$defs/source" },
+    "quality": { "$ref": "common.schema.json#/$defs/quality" }
+  }
+}

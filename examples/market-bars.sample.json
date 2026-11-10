@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "instrument_id": "INSTRUMENT_ID_PENDING_VERIFICATION",
+  "symbol": "<SYMBOL>",
+  "venue": null,
+  "currency": "<CCY>",
+  "interval": "1d",
+  "timestamp": "2026-11-09T00:00:00+08:00",
+  "open": "6.60",
+  "high": "6.80",
+  "low": "6.55",
+  "close": "6.74",
+  "volume": null,
+  "adjustment_type": "unknown",
+  "source": {
+    "provider": "manual_fixture",
+    "record_url": null,
+    "retrieved_at": "2026-11-09T12:00:00+08:00",
+    "published_at": null,
+    "provenance_status": "unverified",
+    "raw_payload_id": null,
+    "license_note": "Illustrative fixture only; not market data."
+  },
+  "quality": {
+    "freshness": "unknown",
+    "issues": [
+      "Illustrative values only; replace with verified provider observations.",
+      "Instrument identity and venue have not been confirmed."
+    ],
+    "confidence": 0
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/research-finding.schema.json",
+  "title": "Research finding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "finding_id",
+    "title",
+    "instrument_scope",
+    "question_investigated",
+    "finding_type",
+    "executive_finding",
+    "evidence_and_source_references",
+    "data_period",
+    "method",
+    "results",
+    "limitations",
+    "confidence",
+    "portfolio_relevance",
+    "scenario_impact",
+    "invalidation",
+    "decision_status",
+    "reviewer"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "finding_id": { "type": "string", "pattern": "^FIND-\\d{8}-\\d{3}$" },
+    "title": { "type": "string", "minLength": 1 },
+    "instrument_scope": { "type": "string", "minLength": 1 },
+    "question_investigated": { "type": "string" },
+    "finding_type": {
+      "enum": ["FACT", "ESTIMATE", "HYPOTHESIS", "MODEL_OUTPUT", "UNKNOWN"]
+    },
+    "executive_finding": { "type": "string" },
+    "evidence_and_source_references": { "type": "array", "items": { "type": "string" } },
+    "data_period": { "type": "string" },
+    "recorded_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "method": { "type": "string" },
+    "results": { "type": "string" },
+    "limitations": { "type": "string" },
+    "alternative_explanations": { "type": "string" },
+    "confidence": {
+      "enum": ["low", "medium", "high"]
+    },
+    "portfolio_relevance": { "type": "string" },
+    "scenario_impact": {
+      "enum": ["bullish", "base", "bearish", "neutral"]
+    },
+    "invalidation": { "type": "string" },
+    "decision_status": {
+      "enum": ["research_only", "monitor", "proposed", "human_approved", "rejected"]
+    },
+    "reviewer": { "type": "string" },
+    "review_date": { "type": ["string", "null"], "format": "date" }
+  }
+}

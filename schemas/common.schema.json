@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/common.schema.json",
+  "title": "Common financial data primitives",
+  "$defs": {
+    "money": {
+      "type": "string",
+      "pattern": "^-?\\d+(\\.\\d{1,8})?$",
+      "description": "Decimal string; do not use JSON floating-point for money."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "record_url",
+        "retrieved_at",
+        "provenance_status"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "record_url": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "retrieved_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "published_at": {
+          "oneOf": [
+            { "$ref": "#/$defs/timestamp" },
+            { "type": "null" }
+          ]
+        },
+        "provenance_status": {
+          "enum": ["verified", "unverified", "estimated", "derived"]
+        },
+        "raw_payload_id": { "type": ["string", "null"] },
+        "license_note": { "type": ["string", "null"] }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["freshness", "issues"],
+      "properties": {
+        "freshness": {
+          "enum": ["current", "delayed", "stale", "unknown"]
+        },
+        "issues": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "confidence": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    }
+  }
+}

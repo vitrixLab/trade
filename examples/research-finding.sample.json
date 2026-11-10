@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "finding_id": "FIND-<YYYYMMDD>-001",
+  "title": "Placeholder finding",
+  "instrument_scope": "<SYMBOL>",
+  "question_investigated": "<question>",
+  "finding_type": "HYPOTHESIS",
+  "executive_finding": "<one-line finding>",
+  "evidence_and_source_references": [],
+  "data_period": "<period>",
+  "recorded_at": "2026-11-09T12:00:00+08:00",
+  "method": "<calculation / model / indicators>",
+  "results": "<numerical results with units>",
+  "limitations": "<limitations and confounders>",
+  "alternative_explanations": "<alternative explanations>",
+  "confidence": "low",
+  "portfolio_relevance": "<relevance>",
+  "scenario_impact": "neutral",
+  "invalidation": "<what would invalidate the thesis>",
+  "decision_status": "research_only",
+  "reviewer": "<name>",
+  "review_date": null
+}

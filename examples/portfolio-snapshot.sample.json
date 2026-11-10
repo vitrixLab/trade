@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "snapshot_id": "USER_REPORTED_<YYYY-MM-DD>",
+  "as_of": "2026-11-09T05:32:00+08:00",
+  "base_currency": "<CCY>",
+  "cash_balance": "0.00",
+  "positions": [
+    {
+      "instrument_id": "INSTRUMENT_ID_PENDING_VERIFICATION",
+      "symbol": "<SYMBOL>",
+      "quantity": "0",
+      "average_cost": "0.00",
+      "market_price": null,
+      "market_value": null,
+      "unrealized_pnl": null,
+      "verification_status": "user_reported"
+    }
+  ],
+  "open_orders": [],
+  "data_status": "user_reported"
+}

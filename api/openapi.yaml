@@ -1,0 +1,185 @@
+openapi: 3.1.0
+info:
+  title: Trading Analysis Intelligence API
+  version: 1.0.0
+  description: >
+    Draft read-only API contract. Provider integrations, authentication,
+    persistence, and deployment are not implemented by this specification.
+servers:
+  - url: https://api.example.invalid
+    description: Placeholder only; replace after deployment.
+security:
+  - bearerAuth: []
+paths:
+  /api/v1/instruments:
+    get:
+      summary: List verified instruments
+      parameters:
+        - in: query
+          name: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Instrument directory
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [schema_version, data]
+                properties:
+                  schema_version: { const: '1.0.0' }
+                  data: { type: array, items: { $ref: '#/components/schemas/Instrument' } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /api/v1/market/bars:
+    get:
+      summary: Retrieve normalized OHLCV bars
+      parameters:
+        - in: query
+          name: instrument_id
+          required: true
+          schema: { type: string }
+        - in: query
+          name: interval
+          required: true
+          schema: { enum: [1m, 5m, 15m, 30m, 1h, 1d, 1w, 1mo] }
+        - in: query
+          name: from
+          required: true
+          schema: { type: string, format: date-time }
+        - in: query
+          name: to
+          required: true
+          schema: { type: string, format: date-time }
+        - in: query
+          name: cursor
+          schema: { type: string }
+      responses:
+        '200':
+          description: Market bars
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketBarPage'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /api/v1/macro/observations:
+    get:
+      summary: Retrieve normalized macro observations
+      parameters:
+        - in: query
+          name: series_id
+          required: true
+          schema: { type: string }
+        - in: query
+          name: from
+          schema: { type: string }
+        - in: query
+          name: to
+          schema: { type: string }
+      responses:
+        '200':
+          description: Macro observations
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [schema_version, data]
+                properties:
+                  schema_version: { const: '1.0.0' }
+                  data: { type: array, items: { type: object } }
+  /api/v1/events:
+    get:
+      summary: Retrieve financial intelligence events
+      parameters:
+        - in: query
+          name: region
+          schema: { type: string }
+        - in: query
+          name: from
+          schema: { type: string, format: date-time }
+        - in: query
+          name: to
+          schema: { type: string, format: date-time }
+        - in: query
+          name: category
+          schema: { type: string }
+      responses:
+        '200':
+          description: Event records
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [schema_version, data]
+                properties:
+                  schema_version: { const: '1.0.0' }
+                  data: { type: array, items: { type: object } }
+  /api/v1/portfolio/snapshots:
+    get:
+      summary: Retrieve authorized user's read-only portfolio snapshots
+      responses:
+        '200':
+          description: Portfolio snapshots
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [schema_version, data]
+                properties:
+                  schema_version: { const: '1.0.0' }
+                  data: { type: array, items: { type: object } }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+  /api/v1/research/findings:
+    get:
+      summary: Retrieve research findings
+      parameters:
+        - in: query
+          name: review_status
+          schema:
+            enum: [draft, under_review, approved_for_research_use, rejected, superseded]
+      responses:
+        '200':
+          description: Research findings
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [schema_version, data]
+                properties:
+                  schema_version: { const: '1.0.0' }
+                  data: { type: array, items: { type: object } }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    BadRequest:
+      description: Invalid query parameters
+    Unauthorized:
+      description: Authentication required
+  schemas:
+    Instrument:
+      type: object
+      required: [instrument_id, symbol, currency, identity_status]
+      properties:
+        instrument_id: { type: string }
+        symbol: { type: string }
+        issuer: { type: [string, 'null'] }
+        venue: { type: [string, 'null'] }
+        currency: { type: string, pattern: '^[A-Z]{3}$' }
+        identity_status: { enum: [verified, pending_verification, rejected] }
+    MarketBarPage:
+      type: object
+      required: [schema_version, data, pagination]
+      properties:
+        schema_version: { const: '1.0.0' }
+        data:
+          type: array
+          items: { type: object, description: Normalized market bar matching schemas/market-bar.schema.json }
+        pagination:
+          type: object
+          required: [next_cursor]
+          properties:
+            next_cursor: { type: [string, 'null'] }

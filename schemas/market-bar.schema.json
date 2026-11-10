@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/market-bar.schema.json",
+  "title": "Normalized market bar",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "instrument_id",
+    "symbol",
+    "currency",
+    "interval",
+    "timestamp",
+    "open",
+    "high",
+    "low",
+    "close",
+    "source",
+    "quality"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "instrument_id": { "type": "string", "minLength": 1 },
+    "symbol": { "type": "string", "minLength": 1 },
+    "venue": { "type": ["string", "null"] },
+    "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "interval": { "type": "string" },
+    "timestamp": { "$ref": "common.schema.json#/$defs/timestamp" },
+    "open": { "$ref": "common.schema.json#/$defs/money" },
+    "high": { "$ref": "common.schema.json#/$defs/money" },
+    "low": { "$ref": "common.schema.json#/$defs/money" },
+    "close": { "$ref": "common.schema.json#/$defs/money" },
+    "volume": { "type": ["string", "null"] },
+    "adjustment_type": {
+      "enum": ["none", "split", "dividend", "corporate_action", "unknown"]
+    },
+    "source": { "$ref": "common.schema.json#/$defs/source" },
+    "quality": { "$ref": "common.schema.json#/$defs/quality" }
+  }
+}

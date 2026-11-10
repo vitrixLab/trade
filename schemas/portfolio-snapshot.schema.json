@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/portfolio-snapshot.schema.json",
+  "title": "Read-only portfolio snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "snapshot_id",
+    "as_of",
+    "base_currency",
+    "cash_balance",
+    "positions",
+    "open_orders",
+    "data_status"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "snapshot_id": { "type": "string", "minLength": 1 },
+    "as_of": { "type": "string", "format": "date-time" },
+    "base_currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "cash_balance": { "$ref": "common.schema.json#/$defs/money" },
+    "positions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["instrument_id", "symbol", "quantity", "average_cost"],
+        "properties": {
+          "instrument_id": { "type": "string" },
+          "symbol": { "type": "string" },
+          "quantity": { "type": "string", "pattern": "^\\d+(\\.\\d+)?$" },
+          "average_cost": { "$ref": "common.schema.json#/$defs/money" },
+          "market_price": { "oneOf": [{ "$ref": "common.schema.json#/$defs/money" }, { "type": "null" }] },
+          "market_value": { "oneOf": [{ "$ref": "common.schema.json#/$defs/money" }, { "type": "null" }] },
+          "unrealized_pnl": { "oneOf": [{ "$ref": "common.schema.json#/$defs/money" }, { "type": "null" }] },
+          "verification_status": {
+            "enum": ["verified", "user_reported", "unverified", "unknown"]
+          }
+        }
+      }
+    },
+    "open_orders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["order_ref", "side", "status"],
+        "properties": {
+          "order_ref": { "type": "string" },
+          "side": { "enum": ["buy", "sell"] },
+          "quantity": { "type": ["string", "null"] },
+          "limit_price": { "oneOf": [{ "$ref": "common.schema.json#/$defs/money" }, { "type": "null" }] },
+          "status": {
+            "enum": ["pending", "partially_filled", "filled", "cancelled", "rejected", "unknown"]
+          },
+          "verification_status": {
+            "enum": ["verified", "user_reported", "unverified", "unknown"]
+          }
+        }
+      }
+    },
+    "data_status": {
+      "enum": ["live_verified", "delayed_verified", "user_reported", "mixed", "unknown"]
+    }
+  }
+}

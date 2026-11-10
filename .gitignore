@@ -1,0 +1,53 @@
+# Build
+build/
+cmake-build-debug/
+cmake-build-release/
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Secrets / credentials (never commit)
+.env
+.env.*
+credentials.json
+*.key
+*.pem
+secret*/
+**/secrets/**
+**/*secret*
+
+# Generated manifest artifacts
+public/manifests/
+manifest.json
+manifest_metadata.json
+
+# Python / packaging
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+*.log

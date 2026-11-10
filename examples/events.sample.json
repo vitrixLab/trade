@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "event_id": "EVENT_EXAMPLE_001",
+  "title": "Illustrative central-bank policy event",
+  "category": "monetary_policy",
+  "region": "<REGION>",
+  "event_at": null,
+  "published_at": null,
+  "status": "scheduled",
+  "summary": "Placeholder record demonstrating the event contract; not a claim about an actual scheduled event.",
+  "market_channels": [
+    "rates",
+    "fx",
+    "equities"
+  ],
+  "impact_assessment": {
+    "direction": "unclear",
+    "horizon": "short_term",
+    "confidence": 0,
+    "rationale": "No event-specific analysis has been performed."
+  },
+  "source": {
+    "provider": "manual_fixture",
+    "record_url": null,
+    "retrieved_at": "2026-11-09T12:00:00+08:00",
+    "published_at": null,
+    "provenance_status": "unverified",
+    "raw_payload_id": null,
+    "license_note": "Illustrative fixture only."
+  },
+  "quality": {
+    "freshness": "unknown",
+    "issues": [
+      "Placeholder event; verify against official calendar before use."
+    ],
+    "confidence": 0
+  }
+}
